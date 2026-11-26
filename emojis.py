@@ -143,22 +143,13 @@ def items() -> list:
     return [{"n": i, "key": k, "label": lbl, "group": grp, "fallback": fb, "id": IDS.get(k, "")}
             for i, (k, lbl, grp, fb) in enumerate(_META, 1)]
 
-
 def pid(key: str):
-    """Premium emoji ID yoki None."""
-    return IDS.get(key)
+    return None
 
 
 def label(key: str, text: str) -> str:
-    """Tugma matni: premium ID bo'lsa ikonka alohida chiqadi (matn toza),
-    bo'lmasa oddiy emoji matn oldiga qo'shiladi."""
-    if pid(key):
-        return text
     return f"{FALLBACK.get(key, '')} {text}".strip()
 
 
 def tg(key: str) -> str:
-    """Xabar matni uchun emoji (HTML parse_mode)."""
-    fb = FALLBACK.get(key, "•")
-    i = pid(key)
-    return f'<tg-emoji emoji-id="{i}">{fb}</tg-emoji>' if i else fb
+    return FALLBACK.get(key, "•")
